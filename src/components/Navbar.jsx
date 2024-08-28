@@ -1,21 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Navbar = () => {
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
+
+  const handleToggle = (e) => {
+    if (e.target.checked) {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [theme]);
+
   return (
-    <div className="border-gray border-b-[2px] px-7 py-6">
+    <div className="border-gray border-b-[1px] px-7 py-6">
       <div className="flex flex-row justify-between">
-        <img src="/tagalonggo-logo.png"></img>
+        <img className="w-40" src="/tagalonggo-logo.png"></img>
         <label className="swap swap-rotate">
           {/* this hidden checkbox controls the state */}
           <input
             type="checkbox"
             className="theme-controller"
             value="synthwave"
+            onChange={handleToggle}
+            checked={theme === "dark" ? false : true}
           />
 
           {/* sun icon */}
           <svg
-            className="swap-off h-8 w-8 fill-current"
+            className="fill-current w-7 h-7 swap-off"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -24,7 +44,7 @@ const Navbar = () => {
 
           {/* moon icon */}
           <svg
-            className="swap-on h-8 w-8 fill-current"
+            className="fill-current w-7 h-7 swap-on"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >

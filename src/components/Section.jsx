@@ -1,31 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Section = () => {
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState(
+    "Select an algorithm"
+  );
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleSelect = (algorithm) => {
+    setSelectedAlgorithm(algorithm);
+    setIsDropdownOpen(false);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <div className="px-7 py-10 w-[700px] ">
         <form className="flex flex-col gap-y-3">
+          <div className="mb-2 text-lg font-medium text-center">
+            A Part-of-Speech (POS) Tagger For Tagalog-Ilonggo Texts Using
+            Bilingual BERT
+          </div>
           <label className="font-medium">
             Input<span className="text-red">*</span>
           </label>
           <textarea
-            className="textarea textarea-bordered border-gray border-[2px] py-[8px] text-[16px]"
+            className="textarea textarea-bordered py-[8px] text-[16px]"
             placeholder="Enter sentence here..."
-            rows={6}
+            rows={4}
           ></textarea>
           <div className="dropdown">
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-primary w-full flex justify-between"
+              className="flex justify-between w-full btn btn-primary"
+              onClick={toggleDropdown}
             >
-              <div>
-                Select an algorithm<span className="text-red">*</span>
-              </div>
+              <div>{selectedAlgorithm}</div>
 
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-4 w-4"
+                className="w-4 h-4"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -36,30 +53,52 @@ const Section = () => {
                 />
               </svg>
             </div>
-            <ul
-              tabIndex={0}
-              className="dropdown-content menu bg-base-300 text-center rounded-md mt-2 z-[1] w-full p-2 shadow-md"
-            >
-              <li>
-                <a className=" font-medium ">SSP with augmentation</a>
-              </li>
-              <li>
-                <a className=" font-medium ">SOP with augmentation</a>
-              </li>
-              <li>
-                <a className=" font-medium ">SSP without augmentation</a>
-              </li>
-              <li>
-                <a className=" font-medium ">SOP without augmentation</a>
-              </li>
-            </ul>
+            {isDropdownOpen && (
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu bg-base-300 text-center rounded-md mt-2 z-[1] w-full p-2 shadow-md"
+              >
+                <li>
+                  <a
+                    className="font-medium"
+                    onClick={() => handleSelect("SSP with augmentation")}
+                  >
+                    SSP with augmentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="font-medium"
+                    onClick={() => handleSelect("SOP with augmentation")}
+                  >
+                    SOP with augmentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="font-medium"
+                    onClick={() => handleSelect("SSP without augmentation")}
+                  >
+                    SSP without augmentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="font-medium"
+                    onClick={() => handleSelect("SOP without augmentation")}
+                  >
+                    SOP without augmentation
+                  </a>
+                </li>
+              </ul>
+            )}
           </div>
           <div className="flex flex-row gap-x-2">
             <div className="w-full">
-              <button className="btn btn-primary w-full">Clear</button>
+              <button className="w-full btn btn-primary">Clear</button>
             </div>
             <div className="w-full">
-              <button className="btn btn-primary w-full">Generate </button>
+              <button className="w-full btn btn-primary">Submit</button>
             </div>
           </div>
         </form>
