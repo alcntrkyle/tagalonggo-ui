@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import Output from "./Output";
 
 const Section = () => {
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState(
-    "Select an algorithm"
-  );
+  const defaultAlgorithm = "Select an algorithm";
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState(defaultAlgorithm);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [textareaValue, setTextareaValue] = useState("");
 
   const handleSelect = (algorithm) => {
     setSelectedAlgorithm(algorithm);
@@ -15,9 +16,14 @@ const Section = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleClear = () => {
+    setTextareaValue(""); // Clear textarea value
+    setSelectedAlgorithm(defaultAlgorithm); // Reset dropdown to default placeholder
+  };
+
   return (
     <div className="flex items-center justify-center">
-      <div className="px-7 py-10 w-[700px] ">
+      <div className="px-7 pt-10 pb-8 w-[700px]">
         <form className="flex flex-col gap-y-3">
           <div className="mb-2 text-lg font-medium text-center">
             A Part-of-Speech (POS) Tagger For Tagalog-Ilonggo Texts Using
@@ -30,6 +36,8 @@ const Section = () => {
             className="textarea textarea-bordered py-[8px] text-[16px]"
             placeholder="Enter sentence here..."
             rows={4}
+            value={textareaValue} // Bind state to textarea value
+            onChange={(e) => setTextareaValue(e.target.value)} // Update state on change
           ></textarea>
           <div className="dropdown">
             <div
@@ -95,10 +103,18 @@ const Section = () => {
           </div>
           <div className="flex flex-row gap-x-2">
             <div className="w-full">
-              <button className="w-full btn btn-primary">Clear</button>
+              <button
+                type="button"
+                onClick={handleClear}
+                className="w-full btn btn-primary"
+              >
+                Clear
+              </button>
             </div>
             <div className="w-full">
-              <button className="w-full btn btn-primary">Submit</button>
+              <button type="submit" className="w-full btn btn-primary">
+                Submit
+              </button>
             </div>
           </div>
         </form>
