@@ -20,7 +20,7 @@ const Navbar = () => {
   }, [theme]);
 
   return (
-    <div className="border-gray border-b-[1px] px-7 py-6">
+    <div className="border-gray  border-b-[1px] px-7 py-6">
       <div className="flex flex-row justify-between">
         <img className="w-40" src="/tagalonggo-logo.png"></img>
         <label className="swap swap-rotate">
